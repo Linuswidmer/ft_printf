@@ -15,7 +15,7 @@
 NAME = ft_printf
 LIBRARY = libft
 
-FILENAMES = ft_printf ft_intlen
+FILENAMES = ft_printf ft_intlen ft_putnbr_base
 
 SRCS_DIR = ./sources_ft_printf/
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILENAMES)))
@@ -23,6 +23,8 @@ SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILENAMES)))
 OBJS_DIR = ./sources_ft_printf/
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILENAMES)))
 CFLAGS = -Werror -Wall -Wextra
+
+INCLUDES_DIR = -I./includes_ft_printf/ -I./libft/includes/
 
 LIB_DIR = ./libft/
 LIB_INCLUDE = $(addprefix $(LIB_DIR), $(addsuffix .a, $(LIBRARY)))
@@ -32,7 +34,7 @@ ft_printf: ${OBJS}
 	./a.out
 
 .c.o: ${SRCS}
-	cc ${CFLAGS} -c -o $@ $<
+	cc ${CFLAGS} -c -o $@ $< ${INCLUDES_DIR}
 
 all: ${NAME} clean
 

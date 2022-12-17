@@ -1,4 +1,4 @@
-#include "../includes_ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
 unsigned int	ft_intlen(int n)
 {

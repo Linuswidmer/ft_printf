@@ -3,4 +3,5 @@
 
 # include <stdarg.h>
 unsigned int ft_intlen(int n);
+void ft_putnbr_base(int nbr, char *base);
 # endif
