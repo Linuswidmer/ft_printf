@@ -39,10 +39,10 @@ ft_printf: ${OBJS}
 all: ${NAME} clean
 
 test: ${OBJS}
-	for number in 0 1 2 3 4 5 6 7; do \
+	cc ${CFLAGS} ${OBJS} -L. ./libft/libft.a
+	for number in 0 1 2 3 4 5 6 7 8; do \
 			./a.out $$number ; \
 		done
-#	cc ${CFLAGS} ${OBJS} -L. ./libft/libft.a
 
 
 clean:

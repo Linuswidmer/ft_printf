@@ -11,7 +11,7 @@ static void parse_ap(const char c, va_list ap)
   else if (c == '%')
     ft_putchar_fd('%', 1);
   else if (c == 'u')
-    ft_putnbr_fd(va_arg(ap, int), 1); // does not work yet
+    ft_putnbr_fd(va_arg(ap, unsigned int), 1); // does not work yet
   else  if (c == 's')
     ft_putstr_fd(va_arg(ap, char *), 1);
   else if (c == 'x')
