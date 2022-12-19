@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-unsigned int	ft_intlen(int n)
+unsigned int	ft_intlen(long int n)
 {
 	unsigned int	i;
 

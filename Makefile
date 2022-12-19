@@ -15,7 +15,7 @@
 NAME = ft_printf
 LIBRARY = libft
 
-FILENAMES = main ft_printf ft_intlen ft_putnbr_base ft_hexlen ft_print_address_hex
+FILENAMES = ft_printf ft_intlen ft_putnbr_base ft_hexlen ft_print_address_hex
 
 SRCS_DIR = ./sources_ft_printf/
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILENAMES)))

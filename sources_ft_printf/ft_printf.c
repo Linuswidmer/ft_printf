@@ -11,7 +11,7 @@ static void parse_ap(const char c, va_list ap)
   else if (c == '%')
     ft_putchar_fd('%', 1);
   else if (c == 'u')
-    ft_putnbr_fd(va_arg(ap, unsigned int), 1); // does not work yet
+    ft_putnbr_fd(va_arg(ap, unsigned int), 1);
   else  if (c == 's')
     ft_putstr_fd(va_arg(ap, char *), 1);
   else if (c == 'x')
@@ -19,10 +19,7 @@ static void parse_ap(const char c, va_list ap)
   else if (c == 'X')
     ft_putnbr_base(va_arg(ap, int), "0123456789ABCDEF");
   else if (c == 'p')
-    {
-    ft_putstr_fd("0x", 1);
     ft_print_address_hex(va_arg(ap, unsigned long long));
-    }
   else
     return ;
 }
@@ -31,12 +28,10 @@ static unsigned int parse_len(const char c, va_list ap_copy)
 {
   if (c == 'd' || c == 'i')
     return(ft_intlen(va_arg(ap_copy, int)));
-  else if (c == 'c')
-    return (1);
-  else if (c == '%')
+  else if (c == 'c' || c == '%')
     return (1);
   else if (c == 'u')
-    return(ft_intlen(va_arg(ap_copy, int)));
+    return(ft_intlen(va_arg(ap_copy, unsigned int)));
   else  if (c == 's')
     return (ft_strlen(va_arg(ap_copy, char *)));
   else if (c == 'x')
@@ -44,7 +39,10 @@ static unsigned int parse_len(const char c, va_list ap_copy)
   else if (c == 'X')
     return (ft_hexlen(va_arg(ap_copy, int)));
   else if (c == 'p')
-    return (15);
+      if(va_arg(ap_copy, unsigned long long))
+        return (15);
+      else
+        return(5);
   else
     return (0);
 }
@@ -89,24 +87,23 @@ int ft_printf(const char* arg, ...)
   return(len);
 }
 
-// int main(void)
-// {
-//  char str[] = "%d";
-  // void *ptr;
-  // int i;
-  // unsigned int len;
-  //
-  // i = 42;
-  // ptr = &i;
-  // ft_printf("%c some text %s %%some more %i hex: %x", 'c', "hello world", 123, -123456);
-  // len = ft_printf("%s%xfour", "helloxx", 0);
-  // printf("\n");
-  // printf("%i\n", len);
-  // printf("%p\n", ptr);
-  // printf("%li\n", sizeof(ptr));
-  // ft_prit_address_hex(ptr);
-  // printf("%i\n", ft_printf("%p", ptr));
-  // printf("%i\n", printf("\n%p", ptr));
-//   printf(str, 22);
-// }
+int main()
+{
+  int i;
+  void *ptr;
+  // char *str;
 
+  i = 42;
+  ptr = NULL;
+  // str = NULL;
+  printf("%p\n", &i);
+  ft_printf("%p", &i);
+  printf("\n");
+  printf("%p\n", ptr);
+  ft_printf("%p", ptr);
+
+  // printf("%i\n", 1283623847283623427);
+
+  // printf("\n%s\n", str);
+  // ft_printf("%s", str);
+}
