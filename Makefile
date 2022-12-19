@@ -15,7 +15,7 @@
 NAME = ft_printf
 LIBRARY = libft
 
-FILENAMES = ft_printf ft_intlen ft_putnbr_base
+FILENAMES = main ft_printf ft_intlen ft_putnbr_base ft_hexlen ft_print_address_hex
 
 SRCS_DIR = ./sources_ft_printf/
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILENAMES)))
@@ -37,6 +37,13 @@ ft_printf: ${OBJS}
 	cc ${CFLAGS} -c -o $@ $< ${INCLUDES_DIR}
 
 all: ${NAME} clean
+
+test: ${OBJS}
+	for number in 0 1 2 3 4 5 6 7; do \
+			./a.out $$number ; \
+		done
+#	cc ${CFLAGS} ${OBJS} -L. ./libft/libft.a
+
 
 clean:
 	rm -rf ${OBJS}

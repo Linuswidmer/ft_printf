@@ -2,28 +2,6 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-
-static void ft_print_address_hex(const void *ptr)
-{
-  long int value;
-  value = (long int)&ptr;
-
-  printf("%li\n", value);
-  printf("%li\n", ((long int)ptr));
-
-  printf("\n");
-  ft_putchar_fd(*(unsigned char*)&value ,1);
-  // while (i < 8)
-  // {
-  //   value = (unsigned char)(ptr + i);
-  //   printf("%i\n", value);
-  //   num = (char)ptr;
-  //   printf("%hhn\n", (unsigned char*)ptr);
-  //   i++;
-  // }
-  // printf("%p\n", ptr);
-}
-
 static void parse_ap(const char c, va_list ap)
 {
   if (c == 'd' || c == 'i')
@@ -41,22 +19,44 @@ static void parse_ap(const char c, va_list ap)
   else if (c == 'X')
     ft_putnbr_base(va_arg(ap, int), "0123456789ABCDEF");
   else if (c == 'p')
-    ft_print_address_hex(va_arg(ap, void *));
+    {
+    ft_putstr_fd("0x", 1);
+    ft_print_address_hex(va_arg(ap, unsigned long long));
+    }
   else
     return ;
 }
 
-int ft_printf(const char* arg, ...)
+static unsigned int parse_len(const char c, va_list ap_copy)
 {
-  va_list ap;
+  if (c == 'd' || c == 'i')
+    return(ft_intlen(va_arg(ap_copy, int)));
+  else if (c == 'c')
+    return (1);
+  else if (c == '%')
+    return (1);
+  else if (c == 'u')
+    return(ft_intlen(va_arg(ap_copy, int)));
+  else  if (c == 's')
+    return (ft_strlen(va_arg(ap_copy, char *)));
+  else if (c == 'x')
+    return (ft_hexlen(va_arg(ap_copy, int)));
+  else if (c == 'X')
+    return (ft_hexlen(va_arg(ap_copy, int)));
+  else if (c == 'p')
+    return (15);
+  else
+    return (0);
+}
+
+
+static unsigned int parse_string(const char *arg, va_list ap, va_list ap_copy)
+{
   int i;
   int len;
 
-  //va_copy
-
-  va_start(ap, arg); // arg is last var name before ellipse
-  i = 0;
   len = 0;
+  i = 0;
   while (arg[i] != '\0') 
   {
     if (arg[i] == '%')
@@ -65,21 +65,48 @@ int ft_printf(const char* arg, ...)
       ft_putchar_fd(arg[i], 1);
     i++;
   }
-  va_end(ap);
-  return(len + i);
+  i = 0;
+  while (arg[i] != '\0') 
+  {
+    if (arg[i] == '%')
+      len = len + parse_len(arg[++i], ap_copy) - 2;
+    i++;
+  }
+  return (len + i);
 }
 
-int main(void)
+int ft_printf(const char* arg, ...)
 {
-  void *ptr;
-  int i;
+  va_list ap;
+  va_list ap_copy;
+  int len;
 
-  i = 42;
-  ptr = &i;
-  ft_printf("%c some text %s %%some more %i hex: %x", 'c', "hello world", 123, -123456);
-  printf("\n");
-  printf("%p\n", ptr);
-  printf("%li\n", sizeof(ptr));
-  ft_print_address_hex(ptr);
+  va_start(ap, arg);
+  va_copy(ap_copy, ap);// arg is last var name before ellipse
+  len = parse_string(arg, ap, ap_copy);
+  va_end(ap);
+  va_end(ap_copy);
+  return(len);
 }
+
+// int main(void)
+// {
+//  char str[] = "%d";
+  // void *ptr;
+  // int i;
+  // unsigned int len;
+  //
+  // i = 42;
+  // ptr = &i;
+  // ft_printf("%c some text %s %%some more %i hex: %x", 'c', "hello world", 123, -123456);
+  // len = ft_printf("%s%xfour", "helloxx", 0);
+  // printf("\n");
+  // printf("%i\n", len);
+  // printf("%p\n", ptr);
+  // printf("%li\n", sizeof(ptr));
+  // ft_prit_address_hex(ptr);
+  // printf("%i\n", ft_printf("%p", ptr));
+  // printf("%i\n", printf("\n%p", ptr));
+//   printf(str, 22);
+// }
 
