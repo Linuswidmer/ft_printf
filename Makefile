@@ -88,9 +88,10 @@ ${NAME}: ${OBJS}
 	ar rc $@ $^
 	ranlib ${NAME}
 
-# $(NAME): ${OBJS}
-# 	cc ${CFLAGS} ${OBJS} -L. ./libft/libft.a
-# 	./a.out
+main:
+	cc $(CFLAGS) main.c -c -I./includes_ft_printf/
+	cc ${CFLAGS} main.o -L. libftprintf.a
+	./a.out
 
 .c.o: ${SRCS}
 	cc ${CFLAGS} -c -o $@ $< ${INCLUDES_DIR}

@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-unsigned int	ft_intlen(long int n)
+unsigned int	ft_intlen_base(long int n, unsigned int baselen)
 {
 	unsigned int	i;
 
@@ -10,10 +10,10 @@ unsigned int	ft_intlen(long int n)
     i++;
     n = n * -1;
   }
-	while (n > 9)
+	while (n > (baselen - 1))
 	{
 		i++;
-		n = n / 10;
+		n = n / baselen;
 	}
 	return (i + 1);
 }

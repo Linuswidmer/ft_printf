@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	ft_putnbr_base(int nbr, char *base)
+void	ft_putnbr_base(long int nbr, char *base)
 {
 	int len;
 	char print;
