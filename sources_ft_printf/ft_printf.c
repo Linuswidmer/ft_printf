@@ -87,23 +87,23 @@ int ft_printf(const char* arg, ...)
   return(len);
 }
 
-int main()
-{
-  int i;
-  void *ptr;
-  // char *str;
-
-  i = 42;
-  ptr = NULL;
-  // str = NULL;
-  printf("%p\n", &i);
-  ft_printf("%p", &i);
-  printf("\n");
-  printf("%p\n", ptr);
-  ft_printf("%p", ptr);
-
-  // printf("%i\n", 1283623847283623427);
-
-  // printf("\n%s\n", str);
-  // ft_printf("%s", str);
-}
+// int main()
+// {
+//   int i;
+//   void *ptr;
+//   // char *str;
+//
+//   i = 42;
+//   ptr = NULL;
+//   // str = NULL;
+//   printf("%p\n", &i);
+//   ft_printf("%p", &i);
+//   printf("\n");
+//   printf("%p\n", ptr);
+//   ft_printf("%p", ptr);
+//
+//   // printf("%i\n", 1283623847283623427);
+//
+//   // printf("\n%s\n", str);
+//   // ft_printf("%s", str);
+// }
