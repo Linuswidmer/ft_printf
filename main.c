@@ -21,5 +21,8 @@ int main()
   printf("%i\n", ft_printf("%X\n", 15));
   printf("%i\n", ft_printf("%p\n", ptr));
   printf("%i\n", ft_printf("%s\n", str));
-
+  printf("\n");
+  printf("\n");
+  printf("%i\n", ft_printf("%p\n", &i));
+  printf("%i\n", printf("%p\n", &i));
 }

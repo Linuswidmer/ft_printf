@@ -18,13 +18,26 @@ static void print_address(unsigned long long address)
 		write(1, &print, 1);
 	}
 }
-void ft_print_address_hex(unsigned long long address)
+
+static unsigned int length_address(unsigned long long address)
+{
+  unsigned int len;
+
+  len = 1;
+  while (address > 15)
+  {
+    len++;
+    address = address / 16;
+  }
+  return (len);
+}
+
+unsigned int ft_print_address_hex(unsigned long long address)
 {
   if(address)
   {
     ft_putstr_fd("0x", 1);
     print_address(address);
   }
-  else
-    ft_putstr_fd("(nil)", 1);
+  return (length_address(address));
 }

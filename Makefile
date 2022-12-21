@@ -15,9 +15,8 @@
 NAME = libftprintf.a
 
 FILENAMES_FT_PRINTF = ft_printf \
-											ft_intlen \
+											ft_intlen_base \
 											ft_putnbr_base \
-											ft_hexlen \
 											ft_print_address_hex
 
 FILENAMES_LIBFT = ft_isalpha \

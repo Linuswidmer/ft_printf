@@ -4,8 +4,16 @@
 
 static unsigned int parse_int(long int n, char *base)
 {
-  ft_putnbr_base(n, base); 
-  return (ft_intlen_base(n, ft_strlen(base)));
+  if (ft_strlen(base) > 10 && n < 0)
+  {
+    ft_putnbr_base( (unsigned int)n, base);
+    return (ft_intlen_base( (unsigned int)n, ft_strlen(base))); 
+  }
+  else
+  {
+    ft_putnbr_base(n, base);
+    return (ft_intlen_base(n, ft_strlen(base)));
+  }
 }
 
 static unsigned int parse_string(char *str)
@@ -21,13 +29,15 @@ static unsigned int parse_string(char *str)
 
 static unsigned int parse_pointer(unsigned long long n)
 {
+  unsigned int len;
+  
   if(!n)
   {
     ft_putstr_fd("(nil)",1);
     return (5);
   }
-  ft_print_address_hex(n);
-  return (15);
+  len = ft_print_address_hex(n);
+  return (len + 2); 
 }
 
 static unsigned int parse_ap(const char c, va_list ap)
@@ -58,17 +68,19 @@ int ft_printf(const char* arg, ...)
   int len;
   int i;
 
+  if (!arg)
+    return(-1);
   i = 0;
   len = 0;
   va_start(ap, arg);
   while (arg[i] != '\0') 
   {
     if (arg[i] == '%')
-      len = parse_ap(arg[++i], ap);
+      len = len + parse_ap(arg[++i], ap) - 2;
     else 
       ft_putchar_fd(arg[i], 1);
     i++;
   }
   va_end(ap);
-  return(len);
+  return(len + i);
 }
